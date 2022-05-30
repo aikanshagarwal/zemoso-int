@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Save Manufacturer</title>
+
+</head>
+
+<body>
+
+<div class="container">
+    <hr>
+    <h3>Manufacturer Directory</h3>
+    <hr>
+
+    <p class="h4 mb-4">Save Manufacturer</p>
+
+    <form action="#" th:action="@{/manufacturer/save}" th:object="${manufacturer}" method="POST">
+
+        <input type="hidden" th:field="*{id}"/>
+
+       <input type="text" th:field="*{name}"
+               class="form-control mb-3 col-4" placeholder="Name">
+        <span style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
+
+        <input type="text" th:field="*{country}"
+               class="form-control mb-3 col-4" placeholder="Country">
+        <span style="color:red" th:if="${#fields.hasErrors('country')}"  th:errors="*{country}">Country Error</span>
+
+        <input type="email" th:field="*{email}"
+               class="form-control mb-3 col-4" placeholder="Email">
+        <span style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
+
+        <br><br>
+        <button type="submit" class="btn btn-info col-2">Save</button>
+
+    </form>
+
+    <hr>
+    <a th:href="@{/manufacturer/list}">Back to Manufacturers List</a>
+
+</div>
+
+</body>
+
+</html>

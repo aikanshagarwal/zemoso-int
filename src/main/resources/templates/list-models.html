@@ -1,0 +1,70 @@
+<!DocType HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Models</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container">
+    <hr>
+    <h3>Models Directory</h3>
+    <hr>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>Manufacturer</th>
+            <th>Name</th>
+            <th>Variant</th>
+            <th sec:authorize="hasRole('ROLE_MANUFACTURER')">Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="tempModels:${models}">
+            <td th:text="${tempModels.manufacturer.name}"/>
+            <td th:text="${tempModels.name}"/>
+            <td th:text="${tempModels.variant}"/>
+            <td sec:authorize="hasRole('ROLE_MANUFACTURER')">
+                <a th:href="@{/models/showFormForUpdate(modelsId=${tempModels.id})}"
+                   class="btn btn-info btn-sm">
+                    Update
+                </a>
+                <span sec:authorize="hasRole('ROLE_MANUFACTURER')">
+                <a th:href="@{/models/delete(modelsId=${tempModels.id})}"
+                   class="btn btn-danger btn-sm" onclick="if(!confirm('Are You sure want to delete this model?')) return false;">
+                    Delete
+                </a>
+                </span>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <hr>
+    <span sec:authorize="hasRole('ROLE_MANUFACTURER')">
+        <br>
+    <a th:href="@{/models/showFormForAdd}"
+       class="btn btn-primary btn-sm mb-3">
+        Add a new Model
+    </a>
+    </span>
+    <br>
+    <a th:href="@{/manufacturer/list}" class="btn btn-primary btn-sm mb-3">Manufacturers List</a>
+    <br>
+    <a href="javascript: document.logoutForm.submit()" role="menuitem" class="btn btn-danger btn-sm">Logout</a>
+    <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+        <input hidden type="submit" value="Sign Out"/>
+    </form>
+
+</div>
+
+</body>
+
+</html>
