@@ -21,6 +21,7 @@ public class Models
     @NotEmpty(message = "Field cannot be empty!")
     private String variant;
 
+
     @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "manufacturer_id",referencedColumnName = "id")
     private Manufacturer manufacturer;
@@ -45,6 +46,11 @@ public class Models
         this.name = name;
         this.variant = variant;
         this.manufacturer = manufacturer;
+    }
+
+    public Models(String name, String variant) {
+        this.name = name;
+        this.variant = variant;
     }
 
     public int getId() {
